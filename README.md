@@ -17,11 +17,12 @@ This project uses machine learning, specifically Logistic Regression, to detect 
 ## Installation
 1. Clone the repository:
 git clone https://github.com/Akhil1409906/medicare-fraud-detection.git
-2. Install dependencies:
-3. 3. Run the Flask app:
-  
 
-
+3. Install dependencies:
+    pip install -r requirements.txt
+   
+5. Run the Flask app:
+     app.py
       
 ## Usage
 1. Launch the Flask app locally.
