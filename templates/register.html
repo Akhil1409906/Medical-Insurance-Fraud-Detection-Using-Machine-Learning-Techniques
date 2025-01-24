@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fcfcfc;
+            padding: 15px 30px;
+            border-radius: 50px;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #d4af7a;
+            transform: translateY(-3px);
+        }
+
+        /* Centering the Registration Form */
+        .cont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin-top: 50px; /* Offset navbar */
+        }
+
+        .form-container {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            width: 500px;
+            padding: 40px;
+            background: #fff;
+            box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3), 10px 10px 15px rgba(70, 70, 70, 0.15), inset -10px -10px 15px rgba(255, 255, 255, 0.3), inset 10px 10px 15px rgba(70, 70, 70, 0.15);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: left;
+            color: #333;
+        }
+
+        .form-container input {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container button.submit {
+            width: 100%;
+            padding: 15px;
+            background: #d4af7a;
+            text-transform: uppercase;
+            border-radius: 30px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .form-container button.submit:hover {
+            background-color: #b08d59;
+        }
+
+        .form-container .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-container .login-link a {
+            color: #d4af7a;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .form-container .login-link a:hover {
+            color: #b08d59;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Registration Page -->
+    <div class="cont">
+        <div class="form-container">
+            <h2>Create your Account</h2>
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" />
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" />
+            
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="Confirm your password" />
+            
+            <button type="button" class="submit" onclick="registerUser()">Register</button>
+            
+            <div class="login-link">
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Validation and Redirection -->
+    <script>
+        // Register User Function
+        function registerUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Simple validation
+            if (!username || !password || !confirmPassword) {
+                alert('Please fill all fields!');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // In real-world scenario, you'd send data to the server here.
+            alert('Registration successful!');
+
+            // Redirect to Login after Registration
+            setTimeout(() => {
+                window.location.href = "/login"; // Replace with actual login page URL
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

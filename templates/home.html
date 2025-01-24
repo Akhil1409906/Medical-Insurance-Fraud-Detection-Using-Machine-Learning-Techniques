@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Insurance Fraud Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Resetting some defaults for better cross-browser consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f6f9;
+    color: #333;
+}
+/* Navbar Styling */
+.navbar {
+    background-color: #ffffffdc !important; /* White background */
+    padding: 20px 0;
+    border-bottom: 2px solid #fffdfd; /* Soft border at the bottom */
+    box-shadow: 0 4px 6px rgb(255, 255, 255);
+}
+
+/* Navbar Brand Styling */
+.navbar .navbar-brand {
+    font-family: 'Dancing Script', cursive !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333 !important; /* Dark text color */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+.navbar .navbar-brand .logo-img {
+    width: 60px;
+    height: 50px;
+    margin-right: 5px;
+}
+
+
+/* Navbar Links Styling */
+.navbar .navbar-nav .nav-link {
+    color: #333 !important; /* Black text */
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Hover Effects for Navbar Links */
+.navbar .navbar-nav .nav-link:hover {
+    color: #2a62ab !important; /* Red color on hover */
+    background-color: #f5f5f5e9;
+    border-radius: 5px;
+    transform: translateY(-3px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Active Navbar Links */
+.navbar .navbar-nav .nav-link.active {
+    color: #121212 !important;
+    font-weight: bold;
+}
+
+/* Navbar Toggler (Mobile) */
+.navbar-toggler {
+    border-color: #e74c3c;
+}
+
+.navbar-toggler-icon {
+    background-color: #e74c3c;
+}
+
+/* Adjust Navbar on Smaller Screens */
+@media (max-width: 991px) {
+    .navbar .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        font-size: 1.3rem;
+        padding: 12px 0;
+    }
+}
+
+/* Main Section */
+#main-section {
+    background-color: #ffffff;
+    min-height: 80vh;
+    color: #4070e1;
+    position: relative;
+    text-align: center;
+    padding: 40px 0;
+}
+
+#main-section .left-text h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+#main-section .left-text p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+#main-section .btn {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+
+#main-section .btn:hover {
+    background-color: #16a085;
+    border-color: #16a085;
+}
+
+/* Info Block Section */
+#info-block {
+    background-color: #ecf0f1;
+    padding: 60px 0;
+}
+
+#info-block .col-md-4 {
+    margin-bottom: 30px;
+}
+
+#info-block h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#info-block p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    line-height: 1.8;
+}
+
+/* Call to Action Section */
+#cta {
+    background-color: #2980b9;
+    color: #fff;
+    padding: 80px 0;
+}
+
+#cta h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#cta p {
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+#cta .btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+
+#cta .btn:hover {
+    background-color: #16a085;
+    border-color: #16a085;
+}
+
+/* General Styling for Testimonials Section */
+#testimonials {
+    background-color: #f8f9fa; /* Light background color */
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#testimonials h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Styling for Cards */
+.card {
+    border-radius: 15px; /* Rounded corners for the card */
+    overflow: hidden; /* Ensures the image fits within the rounded corners */
+}
+
+/* Wrapping Image in Card */
+.card-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust the height as needed */
+    overflow: hidden; /* Ensures no image overflow */
+}
+
+/* Centered Image inside Card */
+.card-img-centered {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the container without stretching */
+    object-position: center; /* Centers the image within the container */
+}
+
+
+/* Hover Effect on Cards */
+.card:hover {
+    transform: scale(1.05); /* Slightly zoom in the card */
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.1); /* Zoom in the image when card is hovered */
+}
+
+/* Card Body Styling */
+.card-body {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.card-body h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card-body p {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    #testimonials h3 {
+        font-size: 1.8rem;
+    }
+
+    .card-body h5 {
+        font-size: 1rem;
+    }
+
+    .card-body p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 30px; /* Adds space between cards in small screens */
+    }
+
+    .card-img-wrapper {
+        height: 180px; /* Adjust image height for smaller screens */
+    }
+}
+
+/* General Styling */
+#project {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-color: #ffffff !important;
+}
+
+/* Header Styling */
+#project h2 {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #333; /* Dark color for a minimalist style */
+    text-transform: capitalize;
+    border-bottom: 3px solid #202122; /* Underline with a color */
+    padding-bottom: 10px; /* Space between text and underline */
+    margin-bottom: 70px!important; /* Adds space below the h2 */
+}
+#project h4 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #3e3e3e; /* Dark color for a minimalist style */
+    
+
+}
+
+/* Paragraph Styling */
+#project p {
+    font-size: 1.3rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-top: 60px!important;; /* Adds space above the p */
+}
+
+/* Button Styling */
+#project .btn-primary {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+}
+
+#project .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Image Section Styling */
+#project .position-relative {
+    position: relative;
+}
+
+#project .img-fluid {
+    width: 100%;
+    border-radius: 15px;
+    /* Remove hover effect */
+}
+
+/* Text Overlay Styling */
+#project .position-absolute {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+#project .position-absolute h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+#project .position-absolute p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    #project h2 {
+        font-size: 2.2rem;
+    }
+
+    #project .col-lg-6 {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    #project h2 {
+        font-size: 1.8rem;
+    }
+
+    #project .position-absolute h3 {
+        font-size: 1.2rem;
+    }
+
+    #project .row {
+        flex-direction: column;
+    }
+
+    #project .col-lg-6 {
+        text-align: center;
+    }
+
+    #project .img-fluid {
+        max-width: 90%;
+    }
+}
+
+
+/* Footer Styling */
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 40px 0;
+}
+
+footer p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+footer .social-icons a {
+    font-size: 1.5rem;
+    color: #ecf0f1;
+    margin: 0 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+footer .social-icons a:hover {
+    color: #16a085;
+}
+
+/* Responsive Styling */
+@media (max-width: 992px) {
+    #main-section .container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    #main-section .left-text {
+        margin-bottom: 30px;
+    }
+
+    #info-block .col-md-4 {
+        margin-bottom: 30px;
+    }
+
+    #cta .btn {
+        padding: 12px 20px;
+    }
+
+    #testimonials .card-img-top {
+        height: 120px;
+    }
+
+    #project img {
+        max-width: 90%;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    footer .social-icons a {
+        font-size: 1.2rem;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    #main-section .left-text h1 {
+        font-size: 2.5rem;
+    }
+
+    #cta h2 {
+        font-size: 2rem;
+    }
+
+    #cta p {
+        font-size: 1.1rem;
+    }
+
+    #testimonials .card-title {
+        font-size: 1rem;
+    }
+
+    #project h2 {
+        font-size: 2rem;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="static/c.png" alt="Logo" class="logo-img">
+                Med Fraud Detector
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section id="main-section" class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="left-text">
+                <h1 class="display-4 fw-bold text-dark">Welcome to Medical  Fraud Detection</h1>
+                <p class="lead text-muted">Leverage Machine Learning to detect fraudulent insurance claims and
+                    protect your business from potential risks.</p>
+                <a href="/register" class="btn btn-primary btn-lg">Learn More</a>
+            </div>
+            <div class="right-image">
+                <img src="static/2.png" alt="Fraud Detection Image" class="img-fluid rounded">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Information Block -->
+    <section id="info-block" class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h3 class="mb-3">What We Do</h3>
+                    <p>We utilize advanced machine learning models to analyze insurance claims and detect patterns that
+                        suggest fraud.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="mb-3">How It Works</h3>
+                    <p>Our platform analyzes large datasets using algorithms trained to spot fraudulent activities with
+                        high accuracy.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="mb-3">Get Started</h3>
+                    <p>Start today by signing up and integrating our fraud detection system into your insurance process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Testimonials -->
+<section id="testimonials" class="py-5 bg-light">
+    <div class="container">
+        <h3 class="text-center mb-4">What Our Clients Say</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-img-wrapper">
+                        <img src="static/5.png" class="card-img-centered" alt="Card Image">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">sai Doe</h5>
+                        <p class="card-text">"The fraud detection system helped us reduce fraudulent claims by 30%. It was a game-changer for our insurance business."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-img-wrapper">
+                        <img src="static/98.jpg" class="card-img-centered" alt="Card Image">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">sathish Smith</h5>
+                        <p class="card-text">"We integrated the fraud detection tool into our claims process, and it has made a huge difference in spotting fraudulent activities."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-img-wrapper">
+                        <img src="static/99.jpg" class="card-img-top" alt="Client Image">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Baji Lee</h5>
+                        <p class="card-text">"A must-have tool for any insurance company looking to combat fraud. The predictions are spot on!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Project Section -->
+<section id="project" class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Side: Text, Right Side: Image -->
+            <div class="col-lg-6">
+                <h2 class="display-4 mb-4 text-dark font-weight-bold">Medical Insurance Fraud Detection Using Machine Learning</h2>
+                
+                <p class="text-dark mb-4">Machine learning models like Logistic Regression and Random Forest are at the core of our detection mechanism, providing high accuracy and reliability in classifying claims. These models continuously learn from new data, ensuring the system evolves with emerging fraud tactics.</p>
+
+                <h4 class="font-weight-bold mb-3">Key Features:</h4>
+                <ul class="list-unstyled mb-4">
+                    <li><strong>Logistic Regression:</strong> A powerful algorithm used to predict the probability of fraud based on various input features.</li>
+                    
+                    <li><strong>Classification Metrics:</strong> Our system utilizes various metrics, such as precision, recall, and F1 score, to evaluate model performance.</li>
+                </ul>
+
+                <p class="text-dark mb-4">Our system is designed for ease of use, providing intuitive interfaces for healthcare professionals and insurance agents to quickly verify the authenticity of claims and flag suspicious activities for further review.</p>
+
+                <a href="#learn-more" class="btn btn-primary btn-lg">Learn More</a>
+            </div>
+            <!-- Right Side: Image -->
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="static/1.jpg" alt="Medical Insurance Fraud Detection Project" class="img-fluid rounded" >
+                </div>
+            </div>
+        </div>
+
+        <!-- New Section with 3 Images and Information (Alternating Layout) -->
+        <div class="row mt-5">
+            <!-- Left Side: Image, Right Side: Text -->
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="static/4.jpg" alt="Fraud Detection Model" class="img-fluid rounded">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4 class="font-weight-bold mb-3">Fraud Detection Model</h4>
+                <p>Utilizing deep learning techniques to enhance the accuracy of fraud detection. The system continuously adapts and improves with new fraud patterns.</p>
+            </div>
+        </div>
+
+        <!-- Left Side: Text, Right Side: Image -->
+        <div class="row mt-5">
+            <div class="col-lg-6">
+                <h4 class="font-weight-bold mb-3">Predictive Analytics</h4>
+                <p>Leveraging historical data to predict and prevent potential fraudulent activities. Our models analyze patterns over time for better prediction accuracy.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="static/7.jpg" alt="Predictive Analytics" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Side: Image, Right Side: Text -->
+        <div class="row mt-5">
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="static/6.jpg" alt="Machine Learning Algorithms" class="img-fluid rounded">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4 class="font-weight-bold mb-3">Machine Learning Algorithms</h4>
+                <p>Applying machine learning models like Logistic Regression and Random Forest to automate fraud detection, increasing efficiency and reducing human error.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-4">
+        <p>&copy; 2024 Med Fraud Detection. All Rights Reserved. <br> Designed by Your Company</p>
+        <div>
+            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
