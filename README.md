@@ -12,7 +12,7 @@ This project uses machine learning, specifically Logistic Regression, to detect 
 - **Python**
 - **Flask**
 - **HTML, CSS**
-- **Logistic Regression**
+- **Machne Learning(Logistic Regression)**
 
 ## Installation
 1. Clone the repository:
