@@ -1,3 +1,5 @@
+If you like our project, please give us a star ⭐ on GitHub for latest update.
+
 # Medical Insurance Fraud Detection
 
 This project uses machine learning, specifically Logistic Regression, to detect medical insurance fraud by classifying claims as fraudulent or legitimate. The system is built with Python, Flask, HTML, and CSS for an easy-to-use web interface that provides real-time predictions.
